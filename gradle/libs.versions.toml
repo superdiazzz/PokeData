@@ -1,13 +1,16 @@
 [versions]
 agp = "8.6.1"
 kotlin = "2.1.0"
+
+ksp = "2.1.0-1.0.29"
+
 # Android Core
 coreKtx = "1.12.0"
 lifecycle = "2.7.0"
 activityCompose = "1.8.1"
 
 # Compose
-composeBom = "2023.10.01"
+composeBom = "2025.02.00"
 navigation = "2.7.5"
 
 # Room
@@ -83,3 +86,6 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref="hiltversion"}
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
