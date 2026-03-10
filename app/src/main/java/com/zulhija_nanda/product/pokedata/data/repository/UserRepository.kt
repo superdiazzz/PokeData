@@ -18,6 +18,11 @@ class UserRepository @Inject constructor(private val userDao: UserDao) {
         )
     }
 
+    suspend fun getUser(email: String): UserEntity? {
+        return userDao.getUser(email)
+    }
+
+
     suspend fun login(
         email: String,
         password: String

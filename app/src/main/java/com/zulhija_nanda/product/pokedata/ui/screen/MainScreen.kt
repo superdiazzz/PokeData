@@ -1,55 +1,76 @@
 package com.zulhija_nanda.product.pokedata.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.zulhija_nanda.product.pokedata.ui.components.BottomTab
 
 @Composable
 fun MainScreen(){
+    val tabs = listOf(
+        BottomTab.Home,
+        BottomTab.Profile
+    )
 
     val navController = rememberNavController()
+
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
         bottomBar = {
             NavigationBar {
-                NavigationBarItem(
-                    selected = true,
-                    onClick = { navController.navigate("home")},
-                    label = { Text("Home") },
-                    icon = { Icon(Icons.Default.Home, null) }
-                )
-                NavigationBarItem(
-                    selected = true,
-                    onClick = { navController.navigate("profile")},
-                    label = { Text("Profile") },
-                    icon = { Icon(Icons.Default.Person, null) }
-                )
+
+                tabs.forEach { tab ->
+
+                    NavigationBarItem(
+                        selected = currentRoute == tab.route,
+                        onClick = {
+                            navController.navigate(tab.route){
+                                popUpTo(navController.graph.startDestinationId)
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        label = { Text(tab.title) },
+                        icon = { Icon(tab.icon, null) }
+                    )
+                }
             }
         }
     ) { padding ->
 
         NavHost(
             navController = navController,
-            startDestination = "home",
+            startDestination = BottomTab.Home.route,
             modifier = Modifier.padding(padding)
         ){
-            composable("home"){
+            composable(BottomTab.Home.route){
                 HomeScreen(navController)
             }
-            composable("profile"){
-                ProfileScreen(navController)
+            composable(BottomTab.Profile.route){
+                ProfileScreen(email = "test@gmail.com")
+            }
 
+            composable("detail/{name}") { backStackEntry ->
+
+                val name = backStackEntry.arguments?.getString("name") ?: ""
+                Log.d("JOEL", "AppNavigation: detail name $name")
+                DetailScreen(name)
             }
         }
     }
