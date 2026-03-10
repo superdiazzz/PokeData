@@ -11,25 +11,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class RegisterViewModel @Inject constructor(
     private val repository: UserRepository
 ) : ViewModel(){
 
     var email by mutableStateOf("")
     var password by mutableStateOf("")
 
-    var loginSuccess by mutableStateOf(false)
+    var registerSuccess by mutableStateOf(false)
 
+    fun register() {
 
-    fun login(email: String, password: String){
         viewModelScope.launch {
 
-            val user = repository.login(email, password)
+            repository.register(email, password)
 
-            if (user != null) {
-                loginSuccess = true
-            }
+            registerSuccess = true
 
         }
+
     }
 }
