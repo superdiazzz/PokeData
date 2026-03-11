@@ -18,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.zulhija_nanda.product.pokedata.ui.components.BottomTab
 
 @Composable
-fun MainScreen(){
+fun MainScreen(parentNavController: NavHostController){
     val tabs = listOf(
         BottomTab.Home,
         BottomTab.Profile
@@ -60,10 +60,10 @@ fun MainScreen(){
             modifier = Modifier.padding(padding)
         ){
             composable(BottomTab.Home.route){
-                HomeScreen(navController)
+                HomeScreen(parentNavController, navController)
             }
             composable(BottomTab.Profile.route){
-                ProfileScreen(email = "test@gmail.com")
+                ProfileScreen(email = "test@gmail.com", navController = navController)
             }
 
             composable("detail/{name}") { backStackEntry ->

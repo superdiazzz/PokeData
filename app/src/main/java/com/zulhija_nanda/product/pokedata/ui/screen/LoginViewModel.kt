@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zulhija_nanda.product.pokedata.data.repository.UserRepository
+import com.zulhija_nanda.product.pokedata.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +24,8 @@ data class LoginUiState(
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: UserRepository
+    private val repository: UserRepository,
+    private val sessionMaager: SessionManager
 ) : ViewModel(){
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -56,6 +58,7 @@ class LoginViewModel @Inject constructor(
 
             if (user != null) {
 
+                sessionMaager.saveLogin(user.email)
                 _uiState.update {
                     it.copy(
                         loading = false,

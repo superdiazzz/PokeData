@@ -90,6 +90,10 @@ dependencies {
     ksp(libs.hilt.compiler)//kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
+    implementation(libs.datastore.preferences)
+
+    implementation(libs.androidx.material.icons.extended)
+
 
     // Testing
     testImplementation(libs.junit)

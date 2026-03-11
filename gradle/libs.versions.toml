@@ -2,6 +2,9 @@
 agp = "8.6.1"
 kotlin = "2.1.0"
 
+#datastore
+datastore = "1.1.1"
+
 ksp = "2.1.0-1.0.29"
 
 # Android Core
@@ -37,6 +40,7 @@ espresso = "3.5.1"
 
 [libraries]
 # Core Android
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
@@ -80,6 +84,8 @@ hilt-compiler = { module="com.google.dagger:hilt-compiler", version.ref="hiltver
 hilt-android-compiler = {module="com.google.dagger:hilt-android-compiler", version.ref="hiltversion"}
 hilt-hilt-compiler = {module="androidx.hilt:hilt-compiler", version.ref="hiltCompilerVer"}
 hilt-navigation-compose = { module="androidx.hilt:hilt-navigation-compose", version.ref="hiltComposeNav"}
+
+datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

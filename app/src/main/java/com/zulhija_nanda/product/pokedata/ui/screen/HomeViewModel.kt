@@ -8,13 +8,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zulhija_nanda.product.pokedata.data.local.PokemonEntity
 import com.zulhija_nanda.product.pokedata.data.repository.PokemonRepository
+import com.zulhija_nanda.product.pokedata.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: PokemonRepository
+    private val repository: PokemonRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel(){
 
     var pokemonList = mutableStateListOf<PokemonEntity>()
@@ -46,6 +48,12 @@ class HomeViewModel @Inject constructor(
 
         }
 
+    }
+
+    fun logout(){
+        viewModelScope.launch {
+            sessionManager.logout()
+        }
     }
 
 }
