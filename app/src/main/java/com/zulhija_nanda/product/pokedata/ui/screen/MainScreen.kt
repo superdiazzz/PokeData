@@ -1,6 +1,9 @@
 package com.zulhija_nanda.product.pokedata.ui.screen
 
 import android.util.Log
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -66,7 +69,13 @@ fun MainScreen(parentNavController: NavHostController){
                 ProfileScreen(email = "test@gmail.com", navController = navController)
             }
 
-            composable("detail/{name}") { backStackEntry ->
+            composable("detail/{name}",
+                enterTransition = {
+                    scaleIn(initialScale = 0.9f) + fadeIn()
+                },
+                exitTransition = {
+                    fadeOut()
+                }) { backStackEntry ->
 
                 val name = backStackEntry.arguments?.getString("name") ?: ""
                 Log.d("JOEL", "AppNavigation: detail name $name")
